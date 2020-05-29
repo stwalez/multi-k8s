@@ -1,0 +1,24 @@
+apiVersion: skaffold/v2beta3
+kind: Config
+metadata:
+  name: multi-k-s
+build:
+  local:
+    push: false
+  artifacts:
+  - image: stwalez/multi-client
+    context: client
+    docker:
+      dockerfile: Dockerfile.dev
+    sync:
+      manual:
+        - src: '**/*.js'
+          dest: .
+        - src: '**/*.css'
+          dest: .
+        - src: '**/*.html'
+          dest: .
+deploy:
+  kubectl:
+    manifests:
+    - k8s/client-deployment.yaml
