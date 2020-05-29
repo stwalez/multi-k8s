@@ -8,10 +8,27 @@ metadata:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
     nginx.ingress.kubernetes.io/ssl-redirect: 'false'
 spec:
+  tls:
+    - hosts:
+        - multi-k8s.tk
+        - www.multi-k8s.tk
+      secretName: k8s-multi-com
   rules:
-    - http:
+    - host: multi-k8s.tk
+      http:
         paths:
-          - path:  /?(.*)
+          - path: /?(.*)
+            backend:
+              serviceName: client-cluster-ip-service
+              servicePort: 3000
+          - path: /api/?(.*)
+            backend:
+              serviceName: server-cluster-ip-service
+              servicePort: 5000
+    - host: www.multi-k8s.tk
+      http:
+        paths:
+          - path: /?(.*)
             backend:
               serviceName: client-cluster-ip-service
               servicePort: 3000
