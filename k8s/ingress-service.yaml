@@ -12,7 +12,7 @@ spec:
     - hosts:
         - multi-k8s.tk
         - www.multi-k8s.tk
-      secretName: k8s-multi-com
+      secretName: multi-k8s-tk
   rules:
     - host: multi-k8s.tk
       http:
