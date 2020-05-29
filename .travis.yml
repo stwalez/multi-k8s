@@ -14,7 +14,7 @@ before_install:
   - gcloud config set project qwiklabs-gcp-04-d28cd5824668
   - gcloud config set compute/zone us-central1-a
   - gcloud container clusters get-credentials multi-cluster
-  - echo "$DOCKER_PASSWORD" | docker login -u "DOCKER_USERNAME" --password-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker build -t stwalez/react-test -f ./client /Dockerfile.dev ./client
 script:
   - docker run -e CI=true stwalez/react-test npm run test -- --coverage
